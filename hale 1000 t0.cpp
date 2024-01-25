@@ -5,87 +5,83 @@
 #include<windows.h>
 
 using namespace std;
-#define BLUE_TEXT "\033[1;34m"
-#define DEFAULT_COLOR "\033[0m"
-void generatePath(int rows, int cols)
+//baraye rangi shodan
+#define RESET   "\033[0m"
+#define BLUE    "\033[34m"
+void generatePath(int numRows, int numCols)
 {
-  	//sakhtane mavane 
   	srand(time(0));
-    vector<vector<int>> table(rows, vector<int>(cols , 5));
-    int sum = 0;
-    //por kardane khanehaye masir
-    for(int i = 0 ; i < rows ; i++)
-    {
-    	int RandNumber = rand() % 7 - 3;
-		while(RandNumber == 0)
-			RandNumber = rand() % 7 - 3;
-		table[i][0] = RandNumber;
-		sum = sum + table[i][0];
-	}
-    for(int j = 1 ; j < cols - 1 ; j++)
-	{		
-		int RandomNumber = rand() % 7 - 3;
-		while(RandomNumber == 0)
-			RandomNumber = rand() % 7 - 3;
-		table[rows - 1][j] = RandomNumber;
-		sum = sum + table[rows - 1][j];
-	}
-	table[rows - 1][cols - 1] = sum;
+	vector<vector<int>> table(numRows, vector<int>(numCols));
+
+    numRows = table.size();
+    numCols = table[0].size();
+	int numZero = rand() % 4 + 2;//tedade mavane be soorate random
 	
-	
-	//sakhte mane ba 0
-    int zeros = rand() % 4 + 2;
-    for(int i = 0 ; i < zeros ; i++)
-  	{
-    	int zeroX = rand() % rows;
-    	int zeroY = rand() % cols;
-    	while(zeroX == rows - 1 || zeroY == 0)
-    	{
-    		zeroX = rand() % rows;
-    		zeroY = rand() % cols;
+	//porkardane khaneha be soorate random az -3 ta 3 be joz 0
+	for(int i = 0 ; i < numRows ; i++)
+	{
+		for(int j = 0 ; j < numCols ; j++)
+		{
+			int Randomnumber = rand() % 7 - 3;
+			while(Randomnumber == 0)
+				Randomnumber = rand() % 7 - 3;
+			table[i][j] = Randomnumber;
 		}
-    		table[zeroX][zeroY] = 0;
-  	}
-  	
-  	//por kardane khanehaye digar be soorate random
-    for(int i = 0 ; i < rows - 1  ; i++)
+	}
+	
+	//porkaradane khaneha be soorate random ba 0 as 2 ta 5 ta
+	for(int i = 0 ; i < numZero ; i++)
+	{
+		int zeroRow , zeroCol;
+		do{
+			zeroRow = rand() % numRows;
+			zeroCol = rand() % numCols;
+		}while(zeroRow == numRows - 1 || zeroCol == 0);
+		table[zeroRow][zeroCol] = 0;
+	}
+	
+	//barabar ghararadadane khane akhar be majmoee khanehaye sotoone aval va radife akhar
+	int sum = 0 ;
+	for(int i = 0 ; i < numRows ; i++)
+	{
+		sum += table[i][0];
+	}
+	for(int j = 1 ; j < numCols - 1 ; j++)
+	{
+		sum += table[numRows - 1][j];
+	}
+	table[numRows - 1][numCols - 1] = sum;
+	
+	//namayeshe jale 1000 to
+    cout << "Displaying the answer of game: " << endl;
+    for (int i = 0 ; i < numRows ; ++i) 
   	{
-    	for(int j = 1 ; j < cols ; j++)
+     	for (int j = 0 ; j < numCols ; ++j)
     	{
-    		if(table[i][j] != 0)
-    		{
-      			int RandNumber = rand() % 7 - 3;
-      			while(RandNumber == 0)
-        			RandNumber = rand() % 7 - 3;  
-        		table[i][j] = RandNumber;
-    		}
-    	}
-    
-  	}
-    cout << "jadval : " << endl;
-    for (int i = 0; i < rows; ++i) 
-  	{
-     	for (int j = 0; j < cols; ++j)
-    	{
-    		if(i == rows - 1)
-    			cout << BLUE_TEXT << table[i][j] << " ";
+    		if(i == numRows - 1)
+    			cout << BLUE << table[i][j] << "\t";
     		else if(j == 0)
-    			cout << BLUE_TEXT << table[i][j] << " ";
+    			cout << BLUE << table[i][j] << "\t";
             else
-            	cout << DEFAULT_COLOR << table[i][j] << " ";
+            	cout << RESET << table[i][j] << "\t";
         }
         cout << endl;
     }
+    cout << RESET;
     
   	
 }
-#define BLUE_TEXT "\033[1;34m"
-#define DEFAULT_COLOR "\033[0m"
 int main() 
 {
-    int rows , cols;
-    cin >> rows >> cols;	
-	generatePath(rows , cols);
+     int numRows, numCols;
+
+    cout << "Enter the number of rows: ";//gereftane tedade satr
+    cin >> numRows;
+
+    cout << "Enter the number of columns: ";//gereftane tedade sotoon
+    cin >> numCols;	
+    
+	generatePath(numRows , numCols);
 	
     return 0;
 }
