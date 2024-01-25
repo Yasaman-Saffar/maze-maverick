@@ -1,8 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <cstdlib>
-#include <ctime>//baraye rand
-#include <limits>
+#include<iostream>
+#include<vector>
+#include<cstdlib>
+#include<ctime>//baraye rand
+#include<limits>
 #include<thread> //baraye sleep
 #include<chrono> //baraye sleep
 
@@ -15,9 +15,9 @@
 using namespace std;
 
 //baraye rangi shodan
-#define RESET   "\033[0m"
-#define BLUE    "\033[34m"
-#define RED		"\033[31m"
+#define RESET   "\033[0m"//az beyn bordane halate rangi 
+#define BLUE    "\033[34m"//abi shodan
+#define RED		"\033[31m"//germez shodan
 
 void clearConsole(double seconds)//tabe  baraye taiine modat zamane pak shodane terminal
 {
@@ -66,6 +66,7 @@ void TableCreation(vector<vector<int>>& table)//tabe shakhte jadval
 		sum += table[numRows - 1][j];
 	}
 	table[numRows - 1][numCols - 1] = sum;
+	
 }
 
 void printTable(const vector<vector<int>>& table, const vector<pair<int , int>>& path) //tabe namayeshe jadval 
@@ -131,7 +132,14 @@ bool movePlayer(int& row, int& col, char direction, vector<vector<int>>& table ,
         default :
         	cout << "your move is wrong!Pleas letter among w , s , d , a." << endl;
     }
-    if(newRow >= 0 && newRow < numRows && newCol >= 0 ; newCol < numCols && table[newRow][newCol] != 0) 
+    if(newRow == numRows - 1 && newCol == numCols - 1 && table[numRows - 1][numCols - 1] == 0)//aghar khane akhar barabar ba 0 bood an ra mane dar nazar nagirad 
+    {
+    	row = newRow;
+        col = newCol;
+        path.push_back({row , col});//ezafe kardane khane be masire karbar
+        return true;
+	}
+    else if(newRow >= 0 && newRow < numRows && newCol >= 0 ; newCol < numCols && table[newRow][newCol] != 0) 
 	{
         row = newRow;
         col = newCol;
@@ -175,7 +183,24 @@ int main()
 
         if(movePlayer(playerRow, playerCol, move, gameTable , path)) //agar true bood
 		{
-            if(playerRow == numRows - 1 && playerCol == numCols - 1) //agar be khane akhar resid
+			if(playerRow == numRows - 1 && playerCol == numCols - 1 && gameTable[numRows - 1][numCols - 1] == 0)//aghar be khane akhar resid va khane akhar barabar ba 0 bood
+        	{
+        		int sumOfpath = 0;
+				for(int i = 0 ; i < path.size() ; i++)
+				{
+					sumOfpath += gameTable[path[i].first][path[i].second];
+				}
+				sumOfpath = sumOfpath - gameTable[numRows - 1][numCols - 1];//jame khane haye toole masire karbar
+				
+				if(path.size() == pathLength && sumOfpath == gameTable[numRows - 1][numCols -1])//agar jame khane ha barabar ba khane akhar bood va tole masir barabar ba x + y - 1 bood
+                	cout << "Congratulations! You Win :)" << endl;
+                else
+                	cout << "I'm sorry . you lost!" << endl;
+                
+               break;
+			}
+			
+            else if(playerRow == numRows - 1 && playerCol == numCols - 1) //agar be khane akhar resid va khane akhar 0 nabood
 			{
 				int sumOfpath = 0;
 				for(int i = 0 ; i < path.size() ; i++)
@@ -183,6 +208,7 @@ int main()
 					sumOfpath += gameTable[path[i].first][path[i].second];
 				}
 				sumOfpath = sumOfpath - gameTable[numRows - 1][numCols - 1];//jame khane haye toole masire karbar
+				
 				if(path.size() == pathLength && sumOfpath == gameTable[numRows - 1][numCols -1])//agar jame khane ha barabar ba khane akhar bood va tole masir barabar ba x + y - 1 bood
                 	cout << "Congratulations! You Win :)" << endl;
                 else
@@ -191,6 +217,7 @@ int main()
                break;
             }
         } 
+        
 		else//agar false bood
             cout << "Invalid move. Try again." << endl;
            clearConsole(0.7);//update va pak kardane terminal har 0.7 saniye yek bar
