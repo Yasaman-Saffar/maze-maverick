@@ -52,7 +52,7 @@ void generatePath(int numRows, int numCols)
 	}
 	table[numRows - 1][numCols - 1] = sum;
 	
-	//namayeshe jale 1000 to
+	//namayeshe hale 1000 to
     cout << "Displaying the answer of game: " << endl;
     for (int i = 0 ; i < numRows ; ++i) 
   	{
