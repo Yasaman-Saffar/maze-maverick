@@ -7,9 +7,9 @@
 #include<chrono> //baraye sleep
 
 #ifdef _WIN32
-    #define CLEAR "cls"
+    #define CLEAR "cls"//baraye windows
 #else
-    #define CLEAR "clear"
+    #define CLEAR "clear"//baraye linux
 #endif
 
 using namespace std;
