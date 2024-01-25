@@ -5,6 +5,8 @@
 #include<limits>
 #include<thread> //baraye sleep
 #include<chrono> //baraye sleep
+#include<conio.h>//baraye seda
+#include<windows.h>//baraye seda
 
 #ifdef _WIN32
     #define CLEAR "cls"//baraye windows
@@ -106,32 +108,25 @@ bool movePlayer(int& row, int& col, char direction, vector<vector<int>>& table ,
 
     int newRow = row;
     int newCol = col;
-
-    switch(direction) 
+	
+	if(direction == 'w')//up
+		newRow--;
+	else if(direction == 'a')//left
+		newCol--;
+	else if(direction == 's')//down
+		newRow++;
+	else if(direction == 'd')//right
+		newCol++;
+	else//vared kardane harfi digar
 	{
-        case 'w':
-            if (row > 0) 
-                --newRow;
-            break; 
-            
-        case 's':
-            if (row < numRows - 1)
-                ++newRow;
-            break;
-            
-        case 'a':
-            if (col > 0) 
-                --newCol;
-            break;
-            
-        case 'd':
-            if (col < numCols - 1)
-                ++newCol;
-            break;
-            
-        default :
-        	cout << "your move is wrong!Pleas letter among w , s , d , a." << endl;
-    }
+		Beep(500 , 800);//tolide seda ba 500 hertz va be modate 800 milisaniye
+        cout << "your move is wrong!Pleas letter among w , s , d , a." << endl;
+	}
+	
+	
+    if(newRow < 0 || newCol < 0 || newRow >= numRows || newCol >= numCols || table[newRow][newCol] == 0)//agar az mahdoode jadval kharej shod
+    	return false;
+
     if(newRow == numRows - 1 && newCol == numCols - 1 && table[numRows - 1][numCols - 1] == 0)//aghar khane akhar barabar ba 0 bood an ra mane dar nazar nagirad 
     {
     	row = newRow;
@@ -193,9 +188,17 @@ int main()
 				sumOfpath = sumOfpath - gameTable[numRows - 1][numCols - 1];//jame khane haye toole masire karbar
 				
 				if(path.size() == pathLength && sumOfpath == gameTable[numRows - 1][numCols -1])//agar jame khane ha barabar ba khane akhar bood va tole masir barabar ba x + y - 1 bood
-                	cout << "Congratulations! You Win :)" << endl;
+                {
+                	cout <<"*****************************" << endl;
+                	cout <<"*Congratulations! You Win :)*" << endl;
+                	cout <<"*****************************" << endl;
+				}
                 else
-                	cout << "I'm sorry . you lost!" << endl;
+                {
+                	cout <<"***********************" << endl;
+                	cout << "*I'm sorry . you lost!*" << endl;
+                	cout <<"***********************" << endl;
+				}
                 
                break;
 			}
@@ -210,16 +213,28 @@ int main()
 				sumOfpath = sumOfpath - gameTable[numRows - 1][numCols - 1];//jame khane haye toole masire karbar
 				
 				if(path.size() == pathLength && sumOfpath == gameTable[numRows - 1][numCols -1])//agar jame khane ha barabar ba khane akhar bood va tole masir barabar ba x + y - 1 bood
-                	cout << "Congratulations! You Win :)" << endl;
+				{
+					cout <<"*****************************" << endl;
+                	cout <<"*Congratulations! You Win :)*" << endl;
+                	cout <<"*****************************" << endl;
+				}
                 else
-                	cout << "I'm sorry . you lost!" << endl;
+                {
+                	cout <<"***********************" << endl;
+                	cout << "*I'm sorry . you lost!*" << endl;
+                	cout <<"***********************" << endl;
+				}
+            
                 
                break;
             }
         } 
         
 		else//agar false bood
-            cout << "Invalid move. Try again." << endl;
+		{
+			cout << "Invalid move. Try again." << endl;
+			Beep(500 , 800);//tolide seda ba 500 hertz va be modate 800 milisaniye
+		}
            clearConsole(0.7);//update va pak kardane terminal har 0.7 saniye yek bar
     }
 
