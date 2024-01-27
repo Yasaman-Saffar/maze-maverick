@@ -178,6 +178,7 @@ int main()
 
         if(movePlayer(playerRow, playerCol, move, gameTable , path)) //agar true bood
 		{
+			cout << "Your location is : " << gameTable[playerRow] [playerCol] << endl;// namayeshe mogheiate karbar darharbarharekat
 			if(playerRow == numRows - 1 && playerCol == numCols - 1 && gameTable[numRows - 1][numCols - 1] == 0)//aghar be khane akhar resid va khane akhar barabar ba 0 bood
         	{
         		int sumOfpath = 0;
@@ -232,7 +233,7 @@ int main()
         
 		else//agar false bood
 		{
-			cout << "Invalid move. Try again." << endl;
+			cout << RED << "Invalid move. Try again." << RESET << endl;//namayesh error baraye khoroj az marz haye jadval ya barkhord ba mane ba range ghermez
 			Beep(500 , 800);//tolide seda ba 500 hertz va be modate 800 milisaniye
 		}
            clearConsole(0.7);//update va pak kardane terminal har 0.7 saniye yek bar
