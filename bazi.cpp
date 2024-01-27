@@ -134,7 +134,7 @@ bool movePlayer(int& row, int& col, char direction, vector<vector<int>>& table ,
         path.push_back({row , col});//ezafe kardane khane be masire karbar
         return true;
 	}
-    else if(newRow >= 0 && newRow < numRows && newCol >= 0 ; newCol < numCols && table[newRow][newCol] != 0) 
+    else if(newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols && table[newRow][newCol] != 0) 
 	{
         row = newRow;
         col = newCol;
