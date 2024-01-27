@@ -178,7 +178,11 @@ int main()
 
         if(movePlayer(playerRow, playerCol, move, gameTable , path)) //agar true bood
 		{
-			cout << "Your location is : " << gameTable[playerRow] [playerCol] << endl;// namayeshe mogheiate karbar darharbarharekat
+			
+                        if(!(playerRow == numRows - 1 && playerCol == numCols - 1))// namayeshe mogheiate karbar dar harbar harekat be joz khane akhar
+                        {
+                            cout << "your location is: [" << playerRow<< "][" << playerCol <<"]" << " = " << gameTable[playerRow][playerCol] << endl;
+                        }
 			if(playerRow == numRows - 1 && playerCol == numCols - 1 && gameTable[numRows - 1][numCols - 1] == 0)//aghar be khane akhar resid va khane akhar barabar ba 0 bood
         	{
         		int sumOfpath = 0;
