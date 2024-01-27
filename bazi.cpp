@@ -120,7 +120,7 @@ bool movePlayer(int& row, int& col, char direction, vector<vector<int>>& table ,
 	else//vared kardane harfi digar
 	{
 		Beep(500 , 800);//tolide seda ba 500 hertz va be modate 800 milisaniye
-        cout << "your move is wrong!Pleas letter among w , s , d , a." << endl;
+        cout << "your move is wrong!Pleas choose letter among w , s , d , a." << endl;
 	}
 	
 	
